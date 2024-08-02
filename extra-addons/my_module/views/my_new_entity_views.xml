@@ -1,0 +1,116 @@
+<odoo>
+    <data>
+
+        <!-- Действие для открытия формы -->
+        <record id="action_open_my_new_entity_form" model="ir.actions.act_window">
+            <field name="name">Open My New Entity</field>
+            <field name="res_model">my.new.entity</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+            <field name="context">{}</field>
+        </record>
+
+        <!-- Действие для открытия списка -->
+        <record id="action_my_new_entity" model="ir.actions.act_window">
+            <field name="name">My New Entities</field>
+            <field name="res_model">my.new.entity</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'form_view_initial_mode': 'edit'}</field>
+        </record>
+
+        <!-- Вид списка -->
+        <record id="view_my_new_entity_tree" model="ir.ui.view">
+            <field name="name">my.new.entity.tree</field>
+            <field name="model">my.new.entity</field>
+            <field name="arch" type="xml">
+                <tree string="My New Entities" editable="bottom" create="0"
+                    decoration-danger="selection_field == 'red'"
+                    decoration-info="selection_field == 'blue'"
+                    decoration-success="selection_field == 'green'"
+                    decoration-warning="selection_field == 'black'"
+                    decoration-primary="selection_field == 'white'">
+                    <button name="open_record" type="object" string="Open" class="btn-primary" icon="fa-pencil"/>
+                    
+                    <field name="name" />
+                    <field name="age"/>
+                    <field name="active"/>
+                    <field name="date_created"/>
+                    <field name="amount"/>
+                    <field name="selection_field"/>
+                    
+                    <button name="open_record" type="object" string="Open" class="btn-primary" icon="fa-pencil"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Вид формы -->
+        <record id="view_my_new_entity_form" model="ir.ui.view">
+            <field name="name">my.new.entity.form</field>
+            <field name="model">my.new.entity</field>
+            <field name="arch" type="xml">
+                <form string="My New Entity">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="age"/>
+                            <field name="active"/>
+                            <field name="date_created" readonly="1"/>
+                            <field name="amount"/>
+                            <field name="percentage"/>
+                            <field name="selection_field"/>
+                            <field name="image" widget="image"/>
+                            <field name="file" filename="filename"/>
+                            <field name="url"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="note"/>
+                            <field name="is_user" invisible="1"/>
+                            <field name="show_change_color_button" invisible="is_user"/>
+                        </group>
+                        <div>
+                            <button name="change_color" type="object" string="Change Color" class="btn-primary" invisible="show_change_color_button"/>
+                            
+                            <button name="assign_groups" type="object" string="Assign Groups"/>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Элемент меню -->
+        <menuitem id="my_custom_module_menu" name="My Custom Module" sequence="10"/>
+        <menuitem id="menu_my_new_entity" name="My New Entities" parent="my_custom_module_menu" action="action_my_new_entity" sequence="10"/>
+        <menuitem id="new_entity" name="New" parent="my_custom_module_menu" action="action_open_my_new_entity_form" sequence="10"/>
+
+        <!-- Права доступа к модели -->
+        <record id="model_my_new_entity_access" model="ir.model.access">
+            <field name="name">my.new.entity access</field>
+            <field name="model_id" ref="model_my_new_entity"/>
+            <field name="group_id" ref="base.group_user"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="group_my_new_entity_manager" model="res.groups">
+            <field name="name">My New Entity Manager</field>
+            <field name="category_id" ref="base.module_category_custom"/>
+        </record>
+
+        <record id="group_my_new_entity_user" model="res.groups">
+            <field name="name">My New Entity User</field>
+            <field name="category_id" ref="base.module_category_custom"/>
+        </record>
+
+        <record id="group_my_new_entity_admin" model="res.groups">
+            <field name="name">My New Entity Admin</field>
+            <field name="category_id" ref="base.module_category_custom"/>
+        </record>
+
+
+
+
+    </data>
+</odoo>
